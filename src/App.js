@@ -6,11 +6,15 @@ const Search = styled.div``
 const Results = styled.div``
 const Movie = styled.input``
 const Find = styled.button``
+const Separator = styled.p`
+padding-bottom: 50px;
+`
 const Poster = styled.img`
 width: 100%;
 `
-const TRL = styled.iframe`
-border: none;
+const TRL = styled.a`
+text-decorations: none;
+color: black;
 `
 const Cast = styled.div`
   height: 5cm;
@@ -50,11 +54,12 @@ function update() {
   $("#length").html("<b>Duration:</b> " + movieInfo.length)
   $("#plot").html("<b>Plot: </b>"+movieInfo.plot)
   $("#moviePoster").attr('src', movieInfo.poster)
+  $("#trail").attr('href', movieInfo.trailer.link)
+  $("#trail").html("watch the trailer")
   $("#cast").show()
   for(var x=0;x<14;x++){
     $("#cast").append("<b>"+movieInfo.cast[x].actor +"</b>"+" - "+movieInfo.cast[x].character+"<br>")
   }
-  console.log(movieInfo.poster)
 }
 
 
@@ -66,18 +71,23 @@ function App() {
           <div class="container">
             <div class="wrapper">
               <div st class="row">                  
+              <div class="lg-4">
+                <center>
+                  <h1>MovVI</h1> 
+                </center>
               </div>
-              <div class="row">
+              <div class="col-8">
+              </div>
+              </div>            
+              <div class="row">                
                 <div class="col-sm-3">
-                <h1>MovVI</h1> 
-                  <p>
-                    get information about any movie in a matter of seconds
-                  </p>
                 </div>
                 <div class="col-sm-6">
                   <center>
-                    <Movie id="movieInput" type="text"></Movie>
-                    <Find onClick={findMovie} id="FindMovie">Find</Find>
+                   <Separator>
+                      <Movie placeholder="Movie title..." id="movieInput" type="text"></Movie>
+                      <Find onClick={findMovie} id="FindMovie">Find</Find>
+                   </Separator>
                   </center>
                 </div>
                 <div class="col-sm-3">
@@ -87,9 +97,10 @@ function App() {
                 <div class="col-sm-5">     
                   <div id="imageHold">
                     <Poster src="" id="moviePoster"></Poster>
-                    <TRL id="trail" width="100%" src=""></TRL>
+                    <TRL id="trail" href=""></TRL>
                   </div>           
                 </div>
+                <Separator></Separator>
                 <div class="col-sm-7">
                   <p>
                     <h2 id="movieTitle"></h2>

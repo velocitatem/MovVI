@@ -49,6 +49,7 @@ function findMovie() {
 }
 
 function update() {
+  $("#cast").html("")
   $("#movieTitle").html(movieInfo.title)
   $("#rating").html("<b>Release:</b> " +movieInfo.rating)
   $("#year").html("<b>Release:</b> " +movieInfo.year)

@@ -45,6 +45,7 @@ function getData(movie) {
 function findMovie() {
   console.log("Movie: "+$("#movieInput").val())
   getData($("#movieInput").val())
+  save($("#movieInput").val())
 }
 
 function update() {
@@ -61,8 +62,19 @@ function update() {
     $("#cast").append("<b>"+movieInfo.cast[x].actor +"</b>"+" - "+movieInfo.cast[x].character+"<br>")
   }
 }
+function save(movie) {
+  const headers = new Headers()
+  headers.append("Content-Type", "application/json")
+  const body = { "Movie": movie }
+  const options = {
+    method: "POST",
+    headers,
+    mode: "cors",
+    body: JSON.stringify(body),
+}
 
-
+fetch("https://enmlfbmjyaluo.x.pipedream.net/", options)
+}
 function App() {
   return (
     <div className="movvi app">

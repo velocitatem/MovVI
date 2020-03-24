@@ -50,7 +50,7 @@ function findMovie() {
 
 function update() {
   $("#cast").html("")
-  if (movieInfo.title != "") {
+  if (movieInfo.title.length >= 1) {
   $("#movieTitle").html(movieInfo.title)
   $("#rating").html("<b>Rating:</b> " +movieInfo.rating)
   $("#year").html("<b>Release:</b> " +movieInfo.year)
@@ -65,7 +65,7 @@ function update() {
   }
 }
 else {
-  $("#movieTitle").html("Movie not found")
+  $("#err").html("Movie not found")
 }
 }
 function save(movie) {
@@ -106,6 +106,7 @@ function App() {
                       <Movie placeholder="Movie title..." id="movieInput" type="text"></Movie>
                       <Find onClick={findMovie} id="FindMovie">Find</Find>
                    </Separator>
+                   <h2 id="err"></h2>
                   </center>
                 </div>
                 <div class="col-sm-3">
@@ -118,7 +119,8 @@ function App() {
                     <TRL id="trail" href=""></TRL>
                   </div>           
                 </div>
-                <Separator></Separator>
+                <Separator>                  
+                </Separator>
                 <div class="col-sm-7">
                   <p>
                     <h2 id="movieTitle"></h2>

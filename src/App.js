@@ -7,17 +7,19 @@ const Results = styled.div``
 const Movie = styled.input``
 const Find = styled.button``
 const Separator = styled.p`
-padding-bottom: 50px;
+padding-bottom: 30px;
 `
 const Poster = styled.img`
 width: 100%;
+padding-bottom: 50px;
 `
 const TRL = styled.a`
 text-decorations: none;
+text-decorations: underline;
 color: black;
 `
 const Cast = styled.div`
-  height: 5cm;
+  height: 6cm;
   overflow: auto;
 `
 var movieInfo = ""
@@ -47,9 +49,11 @@ function findMovie() {
   getData($("#movieInput").val())
   save($("#movieInput").val())
 }
-
-function update() {
-  $("#cast").html("")
+$(window).load(function(){
+  $("#moviePoster").hide()
+})
+function update() {  
+  $("#cast").html("")  
   if (movieInfo.title.length >= 1) {
   $("#movieTitle").html(movieInfo.title)
   $("#rating").html("<b>Rating:</b> " +movieInfo.rating)
@@ -57,9 +61,11 @@ function update() {
   $("#length").html("<b>Duration:</b> " + movieInfo.length)
   $("#plot").html("<b>Plot: </b>"+movieInfo.plot)
   $("#moviePoster").attr('src', movieInfo.poster)
+  $("#moviePoster").show()
   $("#trail").attr('href', movieInfo.trailer.link)
   $("#trail").html("watch the trailer")
   $("#cast").show()
+  $("#castTitle").html("<b>Cast:</b>")
   for(var x=0;x<14;x++){
     $("#cast").append("<b>"+movieInfo.cast[x].actor +"</b>"+" - "+movieInfo.cast[x].character+"<br>")
   }
@@ -103,8 +109,10 @@ function App() {
                 <div class="col-sm-6">
                   <center>
                    <Separator>
-                      <Movie placeholder="Movie title..." id="movieInput" type="text"></Movie>
-                      <Find onClick={findMovie} id="FindMovie">Find</Find>
+                      <form action={findMovie}>
+                        <Movie name="movie" placeholder="Movie title..." id="movieInput" type="text"></Movie>                        
+                        <Find type="button" onClick={findMovie} id="FindMovie">Find</Find>
+                      </form>                      
                    </Separator>
                    <h2 id="err"></h2>
                   </center>
@@ -112,11 +120,10 @@ function App() {
                 <div class="col-sm-3">
                 </div>
               </div>
-              <div class="row">
+              <div class="row" id="results">
                 <div class="col-sm-5">     
                   <div id="imageHold">
-                    <Poster src="" id="moviePoster"></Poster>
-                    <TRL id="trail" href=""></TRL>
+                    <Poster alt="poster" src="" id="moviePoster"></Poster>                    
                   </div>           
                 </div>
                 <Separator>                  
@@ -126,9 +133,11 @@ function App() {
                     <h2 id="movieTitle"></h2>
                     <a id="rating"></a> <br></br>
                     <a id="year"></a> <br></br>
-                    <a id="length"></a> <br></br>                    
+                    <a id="length"></a> <br></br>   
+                    <TRL id="trail" href=""></TRL>                 
                     <p id="plot"></p>
-                    <Cast id="CastDiv">
+                    <a id="castTitle"></a>
+                    <Cast id="CastDiv">                      
                       <p id="cast"></p>                      
                     </Cast>                
                   </p>
@@ -137,9 +146,6 @@ function App() {
             </div>
           </div>
         </Search>
-        <Results>
-
-        </Results>
       </Movvi>
     </div>
   );

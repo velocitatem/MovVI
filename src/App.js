@@ -50,8 +50,9 @@ function findMovie() {
 
 function update() {
   $("#cast").html("")
+  if (movieInfo.title != "") {
   $("#movieTitle").html(movieInfo.title)
-  $("#rating").html("<b>Release:</b> " +movieInfo.rating)
+  $("#rating").html("<b>Rating:</b> " +movieInfo.rating)
   $("#year").html("<b>Release:</b> " +movieInfo.year)
   $("#length").html("<b>Duration:</b> " + movieInfo.length)
   $("#plot").html("<b>Plot: </b>"+movieInfo.plot)
@@ -62,6 +63,10 @@ function update() {
   for(var x=0;x<14;x++){
     $("#cast").append("<b>"+movieInfo.cast[x].actor +"</b>"+" - "+movieInfo.cast[x].character+"<br>")
   }
+}
+else {
+  $("#movieTitle").html("Movie not found")
+}
 }
 function save(movie) {
   const headers = new Headers()
